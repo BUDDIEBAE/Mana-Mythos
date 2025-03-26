@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5380ab7a022aec840932c2ec0845ad00, type: 3}
+  m_Name: Mercury Ring
+  m_EditorClassIdentifier: 
+  _RecipeID: 104151008000
+  _ResultItem: {fileID: 11400000, guid: c44d4e85d2af86e4ba4f9b906e3f0e89, type: 2}
+  _MaterialsInRecipe:
+  - {fileID: 11400000, guid: 2b1b13a8556c6a441b0c465939d853f0, type: 2}
+  - {fileID: 11400000, guid: bc366d798e5c1424394639b1cac30946, type: 2}
+  - {fileID: 11400000, guid: 476f0da8c9f597d4eac3648b089d535d, type: 2}
+  - {fileID: 0}
