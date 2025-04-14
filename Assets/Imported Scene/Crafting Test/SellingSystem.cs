@@ -10,8 +10,7 @@ public class SellingSystem : MonoBehaviour
     public Button confirmButton;
     public InventoryHolder playerInventoryHolder; // Reference to InventoryHolder, not just InventorySlot
     private NPCBuyer currentNPC;
-    [SerializeField]private Slot placedItemSlot; // Change to InventorySlot to reference the slot in inventory
-
+    [SerializeField] private Slot placedItemSlot; // Change to InventorySlot to reference the slot in inventory
 
     public void OpenTrade(NPCBuyer npc)
     {
@@ -41,9 +40,6 @@ public class SellingSystem : MonoBehaviour
 
     public void ConfirmTrade()
     {
-
-
-
         if (placedItemSlot == null || placedItemSlot._itemdata == null)
         {
             Debug.Log("No item placed.");
@@ -56,7 +52,7 @@ public class SellingSystem : MonoBehaviour
             return;
         }
 
-        Debug.Log($"Sold {placedItemSlot._itemdata.itemName} to {currentNPC.npcName}!");
+        Debug.Log($"Sold {placedItemSlot._itemdata.itemName} to {currentNPC.gameObject.name}!");
 
         // Clear the slot (remove item)
         placedItemSlot._itemdata = null;
@@ -74,17 +70,4 @@ public class SellingSystem : MonoBehaviour
         placedItemSlot._itemdata = null;
         //placedItemSlot = null;
     }
-
-   /* private Slot FindSlot(ItemData item)
-    {
-        // Assuming InventoryHolder has a way to access slots
-        foreach (Slot slot in playerInventoryHolder.GetComponentsInChildren<Slot>())
-        {
-            if (slot._itemdata == item)
-            {
-                return slot;
-            }
-        }
-        return null;
-    }*/
 }

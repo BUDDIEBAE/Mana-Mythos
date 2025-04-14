@@ -12,13 +12,25 @@ public class NpcNeedsData : ScriptableObject
     public List<ItemData> _itemToBuy = new List<ItemData>();
 
     [ContextMenu("Generate Items To Buy")]
+
+    private void OnValidate()
+    {
+        GenerateItemsToBuy();
+    }
+
     public void GenerateItemsToBuy()
     {
         var desiredTypes = GetItemTypesForNpc(_npcType);
 
         _itemToBuy = _allItemPosible
-            .Where(item => desiredTypes.Contains(item.itemType))
-            .ToList();
+                    .Where(item => desiredTypes.Contains(item.itemType))
+                    .ToList();
+
+        if(_npcType == NpcType.Noble)
+        {
+            _itemToBuy.AddRange(_allItemPosible
+                                .Where(item => item.itemName == "Gold" && item.ID == "005"));
+        }
     }
 
     private List<ItemType> GetItemTypesForNpc(NpcType type)

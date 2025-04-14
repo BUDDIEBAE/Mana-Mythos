@@ -29,8 +29,6 @@ public class Anim : MonoBehaviour
         idle
     }
     [SerializeField] int state;
-
-    [SerializeField] Sprite sprite;
     void OnAnimChange()
     {
         anim.SetInteger("State", state);

@@ -148,18 +148,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 06f47cbec7cfb90499104d49692ed790, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  npcName: Eilis
-  requestedItem: {fileID: 0}
-  allPosibleItems:
-  - {fileID: 11400000, guid: 2b1b13a8556c6a441b0c465939d853f0, type: 2}
-  - {fileID: 11400000, guid: 882e3cb07e45aa247b7849c661988f79, type: 2}
-  - {fileID: 11400000, guid: c1ecfabd0270de5439edce9321345c03, type: 2}
-  - {fileID: 11400000, guid: 8edb2f54fe9cb774c845d484888e8485, type: 2}
-  - {fileID: 11400000, guid: 1145ce265f263a74f99aca2cdecd4083, type: 2}
   moveSpeed: 1.5
-  destination: {fileID: 0}
+  requestedItem: {fileID: 0}
+  itemTobuy: []
+  _needsData: {fileID: 11400000, guid: 113366667c0cfca48aed11fe1e2f4897, type: 2}
   tradeUI: {fileID: 0}
-  _NpcPrefab: {fileID: 0}
+  destination: {fileID: 0}
   spawnPoint: {fileID: 0}
   isUIOpen: 0
 --- !u!65 &4057454570715859829

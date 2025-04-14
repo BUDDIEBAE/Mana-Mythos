@@ -4,28 +4,54 @@ using UnityEngine;
 
 public class NPCBuyer : MonoBehaviour
 {
-    public string npcName;
-    public ItemData requestedItem;
-    public List<ItemData> allPosibleItems;
-    public float moveSpeed = 2f;
-    public Transform destination; // Assign a transform in the Inspector
-    private bool isBuying = false;
+    //public string npcName;
 
+    [Header("Movement")]
+    public float moveSpeed = 2f;
+
+
+    [Header("Items")]
+    private bool isBuying = false;
+    public ItemData requestedItem;
+    public List<ItemData> itemTobuy;
+    [SerializeField] private NpcNeedsData _needsData;
+
+    [Header("References")]
     public SellingSystem tradeUI; // Reference to the UI
 
-    public GameObject _NpcPrefab;
+    //public GameObject _NpcPrefab;
+
+    [Header("Transform")]
+    public Transform destination; // Assign a transform in the Inspector
     public Transform spawnPoint;
+
+
+
     private void Start()
     {
-        StartBuying();
-        requestedItem = allPosibleItems[Random.Range(0, allPosibleItems.Count)];
+        OnGenerateNPC();
+
     }
 
     void Update()
     {
-        if (isBuying)
+    }
+
+    private void OnGenerateNPC()
+    {
+        _needsData.GenerateItemsToBuy();
+        itemTobuy.Clear();
+        for(int i = 0; i < _needsData._itemToBuy.Count; i++)
         {
-            MoveToPlayer();
+            itemTobuy.Add(_needsData._itemToBuy[i]);
+        }
+    }
+
+    private void OnRequestItem()
+    {
+        if(isBuying)
+        {
+            requestedItem = itemTobuy[Random.Range(0, itemTobuy.Count)];
         }
     }
 
@@ -34,20 +60,15 @@ public class NPCBuyer : MonoBehaviour
         isBuying = true;
     }
 
-    void MoveToPlayer()
+    void MoveToBuyingSpot()
     {
         if (destination != null)
         {
             transform.position = Vector3.MoveTowards(transform.position, destination.position, moveSpeed * Time.deltaTime);
-
-            /*if (Vector3.Distance(transform.position, destination.position) < 1f)
-            {
-                isBuying = false;
-                OpenTradeUI();
-            }*/
         }
     }
     public bool isUIOpen;
+
     public void OpenTradeUI()
     {
         if (tradeUI != null)
