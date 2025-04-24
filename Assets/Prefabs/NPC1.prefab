@@ -10,7 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 8178707161603520558}
   - component: {fileID: 7850471636002494614}
-  - component: {fileID: 726816350334738874}
   - component: {fileID: 6195394080711538134}
   - component: {fileID: 4264896306855705206}
   - component: {fileID: 4057454570715859829}
@@ -30,7 +29,7 @@ Transform:
   m_GameObject: {fileID: 5562537035627572152}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -27.511, y: 0.67, z: 2.886}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -88,27 +87,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!65 &726816350334738874
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5562537035627572152}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 0
-  serializedVersion: 3
-  m_Size: {x: 0.39583334, y: 0.875, z: 0.2}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!54 &6195394080711538134
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -149,13 +127,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 1.5
+  isBuying: 0
   requestedItem: {fileID: 0}
   itemTobuy: []
   _needsData: {fileID: 11400000, guid: 113366667c0cfca48aed11fe1e2f4897, type: 2}
   tradeUI: {fileID: 0}
   destination: {fileID: 0}
-  spawnPoint: {fileID: 0}
-  isUIOpen: 0
 --- !u!65 &4057454570715859829
 BoxCollider:
   m_ObjectHideFlags: 0

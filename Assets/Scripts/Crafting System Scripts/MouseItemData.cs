@@ -5,6 +5,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class MouseItemData : MonoBehaviour
 {
@@ -120,7 +121,12 @@ public class MouseItemData : MonoBehaviour
                 _cursorStack++;  // Increase held stack count
                 slot._itemdata = null;  // Remove from slot
                 slot.GetComponent<Image>().sprite = null;  // Clear UI
-                _craftingSystem.OnUpdateRecipeID(); // Update recipe system
+                
+                if(SceneManager.GetActiveScene().name == "Player's Hub")
+                {
+                    _craftingSystem.OnUpdateRecipeID(); // Update recipe system
+
+                }
 
                 _customCursor.gameObject.SetActive(true);
                 _customCursor.sprite = _currItem.icon;
@@ -136,7 +142,10 @@ public class MouseItemData : MonoBehaviour
                 slot.GetComponent<Image>().sprite = _currItem.icon;  // Update UI
                 _cursorStack--;  // Reduce held stack count
 
-                _craftingSystem.OnUpdateRecipeID(); // Update recipe system
+                if(SceneManager.GetActiveScene().name == "Player's Hub")
+                {
+                    _craftingSystem.OnUpdateRecipeID(); // Update recipe system
+                }
 
                 if (_cursorStack <= 0)
                 {
@@ -157,7 +166,10 @@ public class MouseItemData : MonoBehaviour
                 Debug.Log($"Picked up another {_currItem.name}. Stack: {_cursorStack}");
             }
 
-            _craftingSystem.OnUpdateRecipeID(); // Update recipe system
+            if(SceneManager.GetActiveScene().name == "Player's Hub")
+            {
+                _craftingSystem.OnUpdateRecipeID(); // Update recipe system
+            }
         }
         // Picking up the crafted item from the result slot (Slot Index 5)
         /*if(slot._slotIndex == 5)

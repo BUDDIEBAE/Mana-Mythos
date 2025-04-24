@@ -9,6 +9,26 @@ public class CheckHitBox : MonoBehaviour
     [SerializeField] private bool _isInCheckFurnancebox;
     [SerializeField] private bool _isInCheckNPC;
     [SerializeField] private bool _isInCheckPotion;
+
+
+    /*public void OnTriggerTradeUI(TradeSystem tradeSystem)
+    {
+        TradeUIController T = FindObjectOfType<TradeUIController>();
+        UIController uiController = FindObjectOfType<UIController>();
+        InventoryHolder holder = FindObjectOfType<InventoryHolder>();
+
+        uiController.ToggleInventory(holder.InventorySystem);
+        if (!npc.isUIOpen)
+        {
+            //npc.OpenTradeUI();
+        }
+        else
+        {
+            //npc.CloseTradeUI();
+        }
+    }*/
+
+
     private void Update()
     {
         if(Input.GetKeyDown(KeyCode.E))
@@ -23,20 +43,10 @@ public class CheckHitBox : MonoBehaviour
                     uiController.ToggleInventory(holder.InventorySystem);
                 }
             }
-            if(_isInCheckNPC)
+/*            if(_isInCheckNPC)
             {
-                NPCBuyer npc = FindObjectOfType<NPCBuyer>();
 
-                uiController.ToggleInventory(holder.InventorySystem);
-                if(!npc.isUIOpen)
-                {
-                    npc.OpenTradeUI();
-                }
-                else
-                {
-                    npc.CloseTradeUI();
-                }
-            }
+            }*/
             if(_isInCheckPotion)
             {
                 if (holder != null && uiController != null)
@@ -80,7 +90,7 @@ public class CheckHitBox : MonoBehaviour
 
             }
         }
-        if (other.tag == "NPC")
+/*        if (other.tag == "NPC")
         {
             _isInCheckNPC = false;
 
@@ -89,10 +99,8 @@ public class CheckHitBox : MonoBehaviour
             if (uiController.isOpen)
             {
                 uiController.ToggleInventory(holder.InventorySystem);
-
             }
-
-        }
+        }*/
         if(other.tag == "PotionCheck")
         {
             _isInCheckPotion = false;

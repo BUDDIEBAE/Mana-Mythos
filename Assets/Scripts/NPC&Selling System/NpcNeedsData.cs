@@ -7,12 +7,16 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "Npc/Npc Data")]
 public class NpcNeedsData : ScriptableObject
 {
-    [SerializeField] private ItemData[] _allItemPosible;
+
+    [SerializeField] private ItemDictionary _itemDictionary;
+    [SerializeField] private ItemData[] _allItemPosible => _itemDictionary.Items;
     public NpcType _npcType;
     public List<ItemData> _itemToBuy = new List<ItemData>();
+    public int rarity;
+
+
 
     [ContextMenu("Generate Items To Buy")]
-
     private void OnValidate()
     {
         GenerateItemsToBuy();
@@ -38,21 +42,27 @@ public class NpcNeedsData : ScriptableObject
         switch (type)
         {
             case NpcType.MageStudent:
+                rarity = 1;
                 return new List<ItemType> { ItemType.Herb, ItemType.GemStone };
 
             case NpcType.TownsPeople:
+                rarity = 1;
                 return new List<ItemType> { ItemType.Artifact, ItemType.ArtifactParts, ItemType.Metal, ItemType.Herb, ItemType.Potion };
 
             case NpcType.Soldier:
+                rarity = 2;
                 return new List<ItemType> { ItemType.Potion, ItemType.Artifact };
 
             case NpcType.Noble:
+                rarity = 3;
                 return new List<ItemType> { ItemType.Accessory, ItemType.GemStone };
 
             case NpcType.Explorer:
+                rarity = 2;
                 return new List<ItemType> { ItemType.Potion, ItemType.Artifact };
 
             case NpcType.Mage:
+                rarity = 2;
                 return new List<ItemType> { ItemType.Herb, ItemType.GemStone, ItemType.Metal };
 
             default:

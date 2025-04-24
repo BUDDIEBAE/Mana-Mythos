@@ -15,6 +15,7 @@ public class ItemData : ScriptableObject
     public string description;
     public Sprite icon;
     public int maxStack;
+    public int sellPrice;
 }
 
 public enum ItemType
