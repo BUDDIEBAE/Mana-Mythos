@@ -18,3 +18,4 @@ MonoBehaviour:
   description: A simple yet captivating ring made from polished Silver
   icon: {fileID: 21300000, guid: f2c88ab4dede98547afd7867866c6ee0, type: 3}
   maxStack: 1
+  sellPrice: 150

@@ -18,3 +18,4 @@ MonoBehaviour:
   description: A fiery red gemstone, glowing with the warmth of the sun.
   icon: {fileID: 367210982, guid: 9e9585bdf047f0a43acc1a615126e104, type: 3}
   maxStack: 3
+  sellPrice: 200

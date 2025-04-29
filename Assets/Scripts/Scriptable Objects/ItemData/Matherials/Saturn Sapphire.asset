@@ -18,3 +18,4 @@ MonoBehaviour:
   description: A deep blue sapphire, radiating the serene energy of Saturn.
   icon: {fileID: -807146721, guid: 9e9585bdf047f0a43acc1a615126e104, type: 3}
   maxStack: 3
+  sellPrice: 200

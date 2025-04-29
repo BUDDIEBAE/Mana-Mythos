@@ -18,3 +18,4 @@ MonoBehaviour:
   description: 
   icon: {fileID: 21300000, guid: 98f679e29f4b3d34b88d8731cf3df098, type: 3}
   maxStack: 3
+  sellPrice: 150

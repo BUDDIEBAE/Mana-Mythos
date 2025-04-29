@@ -18,3 +18,4 @@ MonoBehaviour:
   description: A mystical pearl that reflects the tranquil light of the moon.
   icon: {fileID: 131403821, guid: 9e9585bdf047f0a43acc1a615126e104, type: 3}
   maxStack: 3
+  sellPrice: 200

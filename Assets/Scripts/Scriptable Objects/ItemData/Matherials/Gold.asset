@@ -21,3 +21,4 @@ MonoBehaviour:
 '
   icon: {fileID: -501367951, guid: 9e9585bdf047f0a43acc1a615126e104, type: 3}
   maxStack: 10
+  sellPrice: 300

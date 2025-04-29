@@ -18,3 +18,4 @@ MonoBehaviour:
   description: A reddish metal, prized for its conductivity and versatility.
   icon: {fileID: 1540143233, guid: 9e9585bdf047f0a43acc1a615126e104, type: 3}
   maxStack: 10
+  sellPrice: 50

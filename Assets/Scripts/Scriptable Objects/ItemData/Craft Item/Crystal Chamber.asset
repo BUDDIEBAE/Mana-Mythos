@@ -14,8 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ID: 151
   itemName: Crystal Chamber
-  itemType: Artifact Parts
+  itemType: 0
   description: A copper tube with a glass chamber, revealing a gemstone pulsating
     with arcane energy.
   icon: {fileID: 21300000, guid: 4eeade2675893b048a014f2a665867c3, type: 3}
   maxStack: 1
+  sellPrice: 200

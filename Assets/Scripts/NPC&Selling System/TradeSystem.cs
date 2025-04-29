@@ -25,6 +25,8 @@ public class TradeSystem : Singleton<TradeSystem>
     }
     private void Update()
     {
+        Debug.Log(InventoryHolder.instance.Money);
+
         if(Input.GetKeyDown(KeyCode.L))
         {
             OnSpawnNPC();
@@ -145,7 +147,7 @@ public class TradeSystem : Singleton<TradeSystem>
         if (currentNPC.requestedItem == item) // if the item match
         {
             // Increase Player's money here
-
+            InventoryHolder.instance.AddMoney(item.sellPrice);
             return true;
         }
         else if(currentNPC.requestedItem.itemType == item.itemType)
@@ -153,11 +155,19 @@ public class TradeSystem : Singleton<TradeSystem>
             if(item.sellPrice > currentNPC.requestedItem.sellPrice)
             {
                 // If the price of item that player offer is higher than requested item price == the price that player will get is equal to item match amount
+
+                InventoryHolder.instance.AddMoney(item.sellPrice);
                 return true;
             }
             else
             {
                 // If the price of item that player offer is lower than requested item price == lower the amount of money that player will get (Around 60-80%)
+                float priceDifference = (float)item.sellPrice / (float)currentNPC.requestedItem.sellPrice;
+
+                float Multiplier = Mathf.Lerp(0.6f, 0.8f, priceDifference);
+
+                int adjustedPrice = Mathf.RoundToInt(item.sellPrice * Multiplier);
+                InventoryHolder.instance.AddMoney(adjustedPrice);
 
                 return true;
             }
