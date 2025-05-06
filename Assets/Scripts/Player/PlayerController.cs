@@ -26,10 +26,19 @@ public class PlayerController : MonoBehaviour
 
         _movement.x = Input.GetAxisRaw("Horizontal");
         _movement.y = Input.GetAxisRaw("Vertical");
+        _movement = _movement.normalized;
 
+
+        Vector3 moveDir = new Vector3(_movement.x, 0f, _movement.y) * (_speed * Time.deltaTime);        
+
+        _rb.MovePosition(_rb.position + moveDir);
+
+        if(_movement != Vector2.zero)
+        {
+            _lastMoveDir = _movement;
+        }
+        
         OnAnimChange();
-
-        _rb.MovePosition((Vector2)_rb.position + _movement.normalized * _speed * Time.fixedDeltaTime);
     }
 
     private void OnAnimChange()
