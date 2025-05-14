@@ -1,9 +1,8 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class RandomPatrolNPC3 : MonoBehaviour
+public class RandomPatrolNPC2 : MonoBehaviour
 {
     public float walkRadius = 10f;
     public float waitTime = 2f;
@@ -11,88 +10,69 @@ public class RandomPatrolNPC3 : MonoBehaviour
 
     private NavMeshAgent agent;
     private float timer;
-    public Animator animator;
-    public float currentZ = 0;
-    public float currentX = 0;
-
-    private Camera mainCamera;
-    private Transform spriteTransform;
+    private Animator animator;
+    private Vector3 lastPosition;
 
     void Start()
     {
         agent = GetComponent<NavMeshAgent>();
         agent.speed = moveSpeed;
         timer = waitTime;
-        SetNewRandomDestination();
 
         animator = GetComponent<Animator>();
-        mainCamera = Camera.main;
+        lastPosition = transform.position;
 
-        spriteTransform = transform.Find("Sprite");
-        if (spriteTransform == null) spriteTransform = transform;
+        SetNewRandomDestination();
     }
 
     void Update()
     {
-        FaceCamera2D();
+        UpdateAnimation();
 
         if (!agent.pathPending && agent.remainingDistance <= agent.stoppingDistance)
         {
             timer += Time.deltaTime;
             if (timer >= waitTime)
             {
-                currentZ = transform.position.z;
-                currentX = transform.position.x;
                 SetNewRandomDestination();
                 timer = 0f;
             }
         }
-
-        animator.SetBool("isMoving", agent.velocity.magnitude > 0.1f);
     }
 
     void SetNewRandomDestination()
     {
         Vector3 randomDirection = Random.insideUnitSphere * walkRadius;
-        randomDirection += transform.position;
+        randomDirection.y = 0;
+        Vector3 destination = transform.position + randomDirection;
 
-        NavMeshHit hit;
-        if (NavMesh.SamplePosition(randomDirection, out hit, walkRadius, NavMesh.AllAreas))
+        if (NavMesh.SamplePosition(destination, out NavMeshHit hit, walkRadius, NavMesh.AllAreas))
         {
-            Vector3 target = hit.position;
-
-            if (currentZ > target.z)
-            {
-                animator.SetInteger("DIR3", 0);
-            }
-            else if (currentZ < target.z)
-            {
-                animator.SetInteger("DIR3", 1);
-            }
-
-            if (currentX > target.x)
-            {
-                animator.SetInteger("DIR3", 2);
-            }
-            else if (currentX < target.x)
-            {
-                animator.SetInteger("DIR3", 3);
-            }
-
-            agent.SetDestination(target);
+            agent.SetDestination(hit.position);
         }
     }
 
-    void FaceCamera2D()
+    void UpdateAnimation()
     {
-        Vector3 camPosition = mainCamera.transform.position;
-        Vector3 lookDir = camPosition - spriteTransform.position;
-        lookDir.y = 0;
+        Vector3 velocity = (transform.position - lastPosition) / Time.deltaTime;
+        Vector3 localVelocity = transform.InverseTransformDirection(velocity);
 
-        if (lookDir.sqrMagnitude > 0.001f)
+        animator?.SetFloat("MoveX", localVelocity.x);
+        animator.SetFloat("MoveZ", localVelocity.z);
+
+        lastPosition = transform.position;
+    }
+
+    void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Despawn"))
         {
-            Quaternion rotation = Quaternion.LookRotation(-lookDir);
-            spriteTransform.rotation = rotation;
+            SpawnManager.Instance.SpawnNewNPC();
+            Destroy(gameObject);
         }
+    }
+    void LateUpdate()
+    {
+        transform.forward = Camera.main.transform.forward;
     }
 }

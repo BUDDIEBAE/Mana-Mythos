@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -11,39 +10,30 @@ public class RandomPatrol : MonoBehaviour
 
     private NavMeshAgent agent;
     private float timer;
-    public Animator animator;
-    public float currentZ = 0;
-    public float currentX = 0;
-
-    private Camera mainCamera;         // <<< เพิ่มกล้องหลัก
-    private Transform spriteTransform; // <<< สำหรับ sprite child
+    private Animator animator;
+    private Vector3 lastPosition;
 
     void Start()
     {
         agent = GetComponent<NavMeshAgent>();
         agent.speed = moveSpeed;
         timer = waitTime;
-        SetNewRandomDestination();
 
         animator = GetComponent<Animator>();
-        mainCamera = Camera.main;
+        lastPosition = transform.position;
 
-        // ถ้า Sprite อยู่ใน child ให้กำหนดชัดเจน
-        spriteTransform = transform.Find("Sprite"); // เปลี่ยนชื่อ GameObject sprite ให้ตรงกับของคุณ
-        if (spriteTransform == null) spriteTransform = transform; // fallback
+        SetNewRandomDestination();
     }
 
     void Update()
     {
-        FaceCamera2D(); // <<< เรียกฟังก์ชันหมุนหากล้อง
+        UpdateAnimation();
 
         if (!agent.pathPending && agent.remainingDistance <= agent.stoppingDistance)
         {
             timer += Time.deltaTime;
             if (timer >= waitTime)
             {
-                currentZ = transform.position.z;
-                currentX = transform.position.x;
                 SetNewRandomDestination();
                 timer = 0f;
             }
@@ -53,44 +43,36 @@ public class RandomPatrol : MonoBehaviour
     void SetNewRandomDestination()
     {
         Vector3 randomDirection = Random.insideUnitSphere * walkRadius;
-        randomDirection += transform.position;
+        randomDirection.y = 0;
+        Vector3 destination = transform.position + randomDirection;
 
-        NavMeshHit hit;
-        if (NavMesh.SamplePosition(randomDirection, out hit, walkRadius, NavMesh.AllAreas))
+        if (NavMesh.SamplePosition(destination, out NavMeshHit hit, walkRadius, NavMesh.AllAreas))
         {
-            if (currentZ > hit.position.z)
-            {
-                animator.SetInteger("DIR", 0);
-            }
-            else if (currentZ < hit.position.z)
-            {
-                animator.SetInteger("DIR", 1);
-            }
-
-            if (currentX > hit.position.x)
-            {
-                animator.SetInteger("DIR", 2);
-            }
-            else if (currentX < hit.position.x)
-            {
-                animator.SetInteger("DIR", 3);
-            }
-
             agent.SetDestination(hit.position);
         }
     }
 
-    void FaceCamera2D()
+    void UpdateAnimation()
     {
-        // หัน sprite child ให้มองกล้อง
-        Vector3 camPosition = mainCamera.transform.position;
-        Vector3 lookDir = camPosition - spriteTransform.position;
-        lookDir.y = 0; // ล็อกหมุนแนวแกน Y เท่านั้น
+        Vector3 velocity = (transform.position - lastPosition) / Time.deltaTime;
+        Vector3 localVelocity = transform.InverseTransformDirection(velocity);
 
-        if (lookDir.sqrMagnitude > 0.001f)
+        animator?.SetFloat("MoveX", localVelocity.x);
+        animator.SetFloat("MoveZ", localVelocity.z);
+
+        lastPosition = transform.position;
+    }
+
+    void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Despawn"))
         {
-            Quaternion rotation = Quaternion.LookRotation(-lookDir); // sprite หันด้านหลัง
-            spriteTransform.rotation = rotation;
+            SpawnManager.Instance.SpawnNewNPC();
+            Destroy(gameObject);
         }
+    }
+    void LateUpdate()
+    {
+        transform.forward = Camera.main.transform.forward;
     }
 }
