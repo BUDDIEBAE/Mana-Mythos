@@ -16,6 +16,6 @@ MonoBehaviour:
   itemName: Augmentation Ring
   itemType: 0
   description: 
-  icon: {fileID: 0}
+  icon: {fileID: 21300000, guid: 7716dffa5cb4228448a7560ccc88e71c, type: 3}
   maxStack: 1
   sellPrice: 450

@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5380ab7a022aec840932c2ec0845ad00, type: 3}
+  m_Name: Injector
+  m_EditorClassIdentifier: 
+  _RecipeID: 159154002002
+  _ResultItem: {fileID: 11400000, guid: e45af5ad941588242a611fdfd76d898e, type: 2}
+  _MaterialsInRecipe:
+  - {fileID: 11400000, guid: f0b0f29c6b9b77441a98de4e6f830d5a, type: 2}
+  - {fileID: 11400000, guid: 7c063900f0e3a9540b5eefc580ab26d2, type: 2}
+  - {fileID: 11400000, guid: 2b43c87f9358c7b409aa72f368561998, type: 2}
+  - {fileID: 11400000, guid: 2b43c87f9358c7b409aa72f368561998, type: 2}

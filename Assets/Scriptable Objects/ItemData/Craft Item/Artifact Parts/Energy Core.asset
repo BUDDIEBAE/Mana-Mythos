@@ -16,6 +16,6 @@ MonoBehaviour:
   itemName: Energy Core
   itemType: 0
   description: 
-  icon: {fileID: 0}
+  icon: {fileID: 21300000, guid: 06439d457c8da064ab789722988d3764, type: 3}
   maxStack: 1
   sellPrice: 300

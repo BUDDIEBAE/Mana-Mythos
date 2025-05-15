@@ -16,6 +16,6 @@ MonoBehaviour:
   itemName: Fire Wand
   itemType: 1
   description: 
-  icon: {fileID: 0}
+  icon: {fileID: 21300000, guid: e715658b5f1a4154eaaa19cd360569cd, type: 3}
   maxStack: 1
   sellPrice: 1500

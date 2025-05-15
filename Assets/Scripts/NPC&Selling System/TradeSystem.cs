@@ -14,18 +14,32 @@ public class TradeSystem : Singleton<TradeSystem>
 
     [SerializeField] private List<GameObject> npcPrefabs = new List<GameObject>();
     [SerializeField] private Transform spawnTransform;
-    [SerializeField] private Transform destination;
+    [SerializeField] private Transform[] destination;
+
+    [SerializeField] private Transform[] leavingDestination;
 
     [Header("Player Interaction")]
     [SerializeField] private Transform playerStand;
     [SerializeField] private float interactionDistance = 2f;
+
+    public bool _hasPlaceItem;
+    private bool _startTrade = false;
     private void SetCurrentNPC(NPCBuyer npc)
     {
         currentNPC = npc;
     }
     private void Update()
     {
-        Debug.Log(InventoryHolder.instance.Money);
+        
+        if(placedItemSlot._itemdata == null)
+        {
+            _hasPlaceItem= false;
+        }
+        else
+        {
+            _hasPlaceItem= true;
+        }
+
 
         if(Input.GetKeyDown(KeyCode.L))
         {
@@ -45,7 +59,7 @@ public class TradeSystem : Singleton<TradeSystem>
 
         if(distance <= interactionDistance)
         {
-            if(currentNPC != null)
+            if(currentNPC != null && _startTrade)
             {
                 if(!uiManager.tradePanel.activeSelf)
                 {
@@ -55,6 +69,11 @@ public class TradeSystem : Singleton<TradeSystem>
                 {
                     uiManager.CloseTrade();
                 }
+            }
+            if(!_startTrade)
+            {
+                _startTrade= true;
+                OnSpawnNPC();
             }
         }
     }
@@ -109,7 +128,7 @@ public class TradeSystem : Singleton<TradeSystem>
             return;
         }
 
-        if(!CheckItemMatch(placedItemSlot._itemdata))
+        if(!CheckItemMatch(placedItemSlot._itemdata, out int itemPrice))
         {
             Debug.Log("Incorrect item placed."); 
             return;
@@ -122,11 +141,11 @@ public class TradeSystem : Singleton<TradeSystem>
         placedItemSlot._image.color = new Color(1f, 1f, 1f, 0f);
 
         currentNPC.isBuying = false;
-        currentNPC.OnLeftTheStore(spawnTransform);
+        currentNPC.OnLeftTheStore(leavingDestination);
         currentNPC = null;
 
 
-        uiManager.CloseTrade();
+        //uiManager.CloseTrade();
 
         OnSpawnNPC();
     }
@@ -134,57 +153,79 @@ public class TradeSystem : Singleton<TradeSystem>
     public void CancleTrade()
     {
         currentNPC.isBuying = false;
-        currentNPC.OnLeftTheStore(spawnTransform);
+        currentNPC.OnLeftTheStore(leavingDestination);
         currentNPC = null;
 
-        uiManager.CloseTrade();
+        //uiManager.CloseTrade();
 
         OnSpawnNPC();
     }
 
-    public bool CheckItemMatch(ItemData item)
+    public bool CheckItemMatch(ItemData item, out int itemPrice)
     {
-        if (currentNPC.requestedItem == item) // if the item match
+        bool match = TryGetItemPrice(item, out itemPrice);
+
+        if (match)
         {
-            // Increase Player's money here
-            InventoryHolder.instance.AddMoney(item.sellPrice);
+            InventoryHolder.instance.AddMoney(itemPrice);
+        }
+
+        return match;
+    }
+
+    public bool TryGetItemPrice(ItemData item, out int itemPrice)
+    {
+        itemPrice = 0;
+
+        if (currentNPC == null || currentNPC.requestedItem == null || item == null)
+        {
+            return false;
+        }
+
+        if (currentNPC.requestedItem == item)
+        {
+            itemPrice = item.sellPrice;
             return true;
         }
-        else if(currentNPC.requestedItem.itemType == item.itemType)
+        else if (currentNPC.requestedItem.itemType == item.itemType)
         {
-            if(item.sellPrice > currentNPC.requestedItem.sellPrice)
+            if (item.sellPrice > currentNPC.requestedItem.sellPrice)
             {
-                // If the price of item that player offer is higher than requested item price == the price that player will get is equal to item match amount
-
-                InventoryHolder.instance.AddMoney(item.sellPrice);
+                itemPrice = item.sellPrice;
                 return true;
             }
             else
             {
-                // If the price of item that player offer is lower than requested item price == lower the amount of money that player will get (Around 60-80%)
                 float priceDifference = (float)item.sellPrice / (float)currentNPC.requestedItem.sellPrice;
-
-                float Multiplier = Mathf.Lerp(0.6f, 0.8f, priceDifference);
-
-                int adjustedPrice = Mathf.RoundToInt(item.sellPrice * Multiplier);
-                InventoryHolder.instance.AddMoney(adjustedPrice);
-
+                float multiplier = Mathf.Lerp(0.6f, 0.8f, priceDifference);
+                itemPrice = Mathf.RoundToInt(item.sellPrice * multiplier);
                 return true;
             }
         }
-        else // item not match at all
+        else
         {
+            itemPrice = 0;
             return false;
         }
     }
 
+    public ItemData GetPlacedItem()
+    {
+        return placedItemSlot?._itemdata;
+    }
 
-    private void OnDrawGizmosSelected()
+    private void OnDrawGizmos()
     {
         if (playerStand == null) return;
 
         Gizmos.color = Color.green;
         Gizmos.DrawWireSphere(playerStand.position, interactionDistance);
+        
+        for(int i = 0; i < destination.Length; i++)
+        {
+            Gizmos.DrawWireSphere(destination[i].position, 0.1f);
+        }
+
     }
 
 }

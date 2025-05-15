@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
-
+using TMPro;
 
 [System.Serializable]
 public class InventoryHolder : Singleton<InventoryHolder>
@@ -20,7 +20,14 @@ public class InventoryHolder : Singleton<InventoryHolder>
     protected int money;
 
     public int Money => money;
+    [SerializeField] private TMP_Text _moneyText;
 
+    
+
+    public void Update()
+    {
+        _moneyText.text = money.ToString();
+    }
 
     public override void Awake()
     {
@@ -37,6 +44,9 @@ public class InventoryHolder : Singleton<InventoryHolder>
         {
             InventorySystem.AddItemToInventory(item, item.maxStack);
         }
+
+        money = PlayerPrefs.GetInt("Money");
+
     }
 
     public void AddMoney(int amount)

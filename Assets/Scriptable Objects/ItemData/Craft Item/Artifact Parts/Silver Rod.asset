@@ -16,6 +16,6 @@ MonoBehaviour:
   itemName: Silver Rod
   itemType: 0
   description: 
-  icon: {fileID: 0}
+  icon: {fileID: 21300000, guid: d64d3028e32594d4f85b514c95795609, type: 3}
   maxStack: 1
   sellPrice: 350

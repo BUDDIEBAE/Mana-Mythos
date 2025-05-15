@@ -9,7 +9,7 @@ public class SceneTownToHub : MonoBehaviour
     {
         if(other.tag == "Player")
         {
-            SceneManager.LoadScene("Player's Hub");
+            SceneManager.LoadScene("Player's Store");
         }
     }
 

@@ -28,6 +28,18 @@ public class UIController : MonoBehaviour
         }
     }
 
+    public void ShowInventory(InventorySystem invSystem)
+    {
+        if (!_inventoryPanel.activeSelf)
+        {
+            ToggleInventory(invSystem); // opens it
+        }
+        else
+        {
+            InventoryHolder.OnDynamicInventoryDisplayRequested?.Invoke(invSystem); // just refresh
+        }
+    }
+
     public void ToggleCrafting()
     {
         isOpen = !isOpen;

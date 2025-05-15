@@ -16,6 +16,6 @@ MonoBehaviour:
   itemName: Lighting Wand
   itemType: 1
   description: 
-  icon: {fileID: 0}
+  icon: {fileID: 21300000, guid: a5d317917b040874e9aa7ea253d6e820, type: 3}
   maxStack: 1
   sellPrice: 1500

@@ -6,11 +6,15 @@ using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using TMPro;
 
+#if UNITY_EDITOR
+using UnityEditor;
+#endif
+
 public class MainMenuActions : MonoBehaviour
 {
     [SerializeField] private List<Image> _highlightImages = new List<Image>();
 
-    [SerializeField] private Scene _sceneToLoad;
+
 
     [SerializeField] private Image _progressBar;
 
@@ -23,34 +27,36 @@ public class MainMenuActions : MonoBehaviour
     {
         foreach (var image in _highlightImages)
         {
-            if(image.IsActive())
+            if (image.IsActive())
             {
                 image.color = Color.clear;
             }
         }
     }
 
-    public void OnStartClick(Scene scene)
+    public void OnStartClick(string sceneName)
     {
+        Debug.Log("Clicked");
         _LoadCanvas.SetActive(true);
 
-        StartCoroutine(LoadingScene(_sceneToLoad));
+        StartCoroutine(LoadingScene(sceneName));
     }
 
-    private IEnumerator LoadingScene(Scene scene)
+    private IEnumerator LoadingScene(string sceneName)
     {
-        AsyncOperation loadAsyncScene = SceneManager.LoadSceneAsync(scene.name);
+        AsyncOperation loadAsyncScene = SceneManager.LoadSceneAsync(sceneName);
         loadAsyncScene.allowSceneActivation = false;
 
 
-        while (loadAsyncScene.isDone)
+
+        while (!loadAsyncScene.isDone)
         {
             float progress = Mathf.Clamp01(loadAsyncScene.progress / 0.9f);
             _progressBar.fillAmount = progress;
 
-            if(loadAsyncScene.progress >= 0.9f)
+            if (loadAsyncScene.progress >= 0.9f)
             {
-                _progressText.text = "";
+                _progressText.text = "Press Any Key To Continue";
 
                 if (Input.anyKeyDown)
                 {
@@ -62,5 +68,16 @@ public class MainMenuActions : MonoBehaviour
 
             yield return null;
         }
+    }
+
+
+    public void OnExit()
+    {
+        #if UNITY_EDITOR
+                EditorApplication.isPlaying = false;
+        #else
+                Application.Quit();
+        #endif
+
     }
 }

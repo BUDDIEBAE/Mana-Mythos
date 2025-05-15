@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5380ab7a022aec840932c2ec0845ad00, type: 3}
+  m_Name: Arcane Gear
+  m_EditorClassIdentifier: 
+  _RecipeID: 001001005000
+  _ResultItem: {fileID: 11400000, guid: 30d4b8d869ee0424088c64683d7320c2, type: 2}
+  _MaterialsInRecipe:
+  - {fileID: 11400000, guid: 56c4bc6dc34742a4d8051e7ba9795690, type: 2}
+  - {fileID: 11400000, guid: 56c4bc6dc34742a4d8051e7ba9795690, type: 2}
+  - {fileID: 11400000, guid: 8edb2f54fe9cb774c845d484888e8485, type: 2}
+  - {fileID: 0}

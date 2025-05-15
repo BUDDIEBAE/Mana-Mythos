@@ -40,33 +40,38 @@ public class NPCBuyer : MonoBehaviour
         }
     }
 
-    public void OnMoveToBuyingSpot(Transform where)
+    public void OnMoveToBuyingSpot(Transform[] where)
     {       
         StartCoroutine(OnMove(where));
     }
 
-    IEnumerator OnMove(Transform where)
+    IEnumerator OnMove(Transform[] destinations)
     {
-        destination = where;
-        if (destination == null) yield break;
-
-        while (Vector3.Distance(transform.position, destination.position) > 0.01f) // Check if arrived to the destination
+        foreach (Transform destination in destinations)
         {
-            transform.position = Vector3.MoveTowards(transform.position, destination.position, moveSpeed * Time.deltaTime);
-            yield return null;
+            if (destination == null) continue;
+
+            while (Vector3.Distance(transform.position, destination.position) > 0.01f)
+            {
+                transform.position = Vector3.MoveTowards(transform.position, destination.position, moveSpeed * Time.deltaTime);
+                yield return null;
+            }
+
+            transform.position = destination.position;
         }
-        
-        transform.position = destination.position;
-        
+
+        // Once all destinations have been reached
         isBuying = true;
         OnRequestItem();
         //StartBuying();
     }
 
-    public void OnLeftTheStore(Transform where)
+    public void OnLeftTheStore(Transform[] where)
     {
         Debug.Log("Is Leaving");
-        StartCoroutine(OnLeft(where));
+        StartCoroutine(OnLeftStore(where));
+
+
     }
 
     IEnumerator OnLeft(Transform where)
@@ -83,7 +88,25 @@ public class NPCBuyer : MonoBehaviour
 
         Destroy(gameObject);
     }
+    IEnumerator OnLeftStore(Transform[] destinations)
+    {
+        if (isBuying == true) yield break;
 
+        foreach (Transform destination in destinations)
+        {
+            if (destination == null) continue;
+
+            while (Vector3.Distance(transform.position, destination.position) > 0.01f)
+            {
+                transform.position = Vector3.MoveTowards(transform.position, destination.position, moveSpeed * Time.deltaTime);
+                yield return null;
+            }
+
+            transform.position = destination.position;
+        }
+
+        Destroy(gameObject);
+    }
 
 
     public void StartBuying()

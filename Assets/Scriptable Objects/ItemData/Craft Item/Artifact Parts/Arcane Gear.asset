@@ -16,6 +16,6 @@ MonoBehaviour:
   itemName: Arcane Gear
   itemType: 0
   description: 
-  icon: {fileID: 0}
+  icon: {fileID: 21300000, guid: da1bcaffb16c365488295c8e22e0d23e, type: 3}
   maxStack: 1
-  sellPrice: 0
+  sellPrice: 500

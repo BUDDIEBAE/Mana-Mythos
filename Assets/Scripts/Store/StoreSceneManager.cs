@@ -155,7 +155,10 @@ public class StoreSceneManager : MonoBehaviour
 
         if (Vector3.Distance(_player.transform.position, _changeToTown.position) < _interactionDistance)
         {
-            SceneManager.LoadScene("TownSceneName"); // Replace with your scene name
+            PlayerPrefs.SetInt("Money", InventoryHolder.instance.Money);
+            PlayerPrefs.Save();
+
+            SceneManager.LoadScene("TownScene"); // Replace with your scene name
         }
     }
  

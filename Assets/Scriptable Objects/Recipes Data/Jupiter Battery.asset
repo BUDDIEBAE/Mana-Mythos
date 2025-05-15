@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5380ab7a022aec840932c2ec0845ad00, type: 3}
+  m_Name: Jupiter Battery
+  m_EditorClassIdentifier: 
+  _RecipeID: 158153009000
+  _ResultItem: {fileID: 11400000, guid: a3c1ab895c38e814b8e9f429edeed04e, type: 2}
+  _MaterialsInRecipe:
+  - {fileID: 11400000, guid: 467775ae9f4ca6c46a737bc9940c962d, type: 2}
+  - {fileID: 11400000, guid: bb65bcc942b578e4b8f9b2429d2993b2, type: 2}
+  - {fileID: 11400000, guid: d162a67a479f9b04aae8f7e5fd83fede, type: 2}
+  - {fileID: 0}

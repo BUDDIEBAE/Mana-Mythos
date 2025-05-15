@@ -16,6 +16,6 @@ MonoBehaviour:
   itemName: Infuser
   itemType: 0
   description: 
-  icon: {fileID: 0}
+  icon: {fileID: 21300000, guid: d5dff31c57fe5054a9c7ae486fd7ded6, type: 3}
   maxStack: 1
   sellPrice: 350

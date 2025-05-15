@@ -16,8 +16,8 @@ public class MouseItemData : MonoBehaviour
     [Header("References")]
     [SerializeField] private Image _customCursor;
     [SerializeField] private TextMeshProUGUI _stackText;
-    private CraftingSystem _craftingSystem;
-    private MiniGameController _controlMiniGame;
+    [SerializeField] private CraftingSystem _craftingSystem;
+    [SerializeField] private MiniGameController _controlMiniGame;
 
     private void Awake()
     {
@@ -122,7 +122,7 @@ public class MouseItemData : MonoBehaviour
                 slot._itemdata = null;  // Remove from slot
                 slot.GetComponent<Image>().sprite = null;  // Clear UI
                 
-                if(SceneManager.GetActiveScene().name == "Player's Hub")
+                if(SceneManager.GetActiveScene().name == "Player's Store")
                 {
                     _craftingSystem.OnUpdateRecipeID(); // Update recipe system
 
@@ -142,7 +142,7 @@ public class MouseItemData : MonoBehaviour
                 slot.GetComponent<Image>().sprite = _currItem.icon;  // Update UI
                 _cursorStack--;  // Reduce held stack count
 
-                if(SceneManager.GetActiveScene().name == "Player's Hub")
+                if(SceneManager.GetActiveScene().name == "Player's Store")
                 {
                     _craftingSystem.OnUpdateRecipeID(); // Update recipe system
                 }
@@ -166,7 +166,7 @@ public class MouseItemData : MonoBehaviour
                 Debug.Log($"Picked up another {_currItem.name}. Stack: {_cursorStack}");
             }
 
-            if(SceneManager.GetActiveScene().name == "Player's Hub")
+            if(SceneManager.GetActiveScene().name == "Player's Store")
             {
                 _craftingSystem.OnUpdateRecipeID(); // Update recipe system
             }

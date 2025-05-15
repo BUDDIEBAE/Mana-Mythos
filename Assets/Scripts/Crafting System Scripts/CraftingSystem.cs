@@ -17,7 +17,7 @@ public class CraftingSystem : MonoBehaviour
     [SerializeField] private string _recipeID;
     [SerializeField] private bool isMatch = false;
 
-    private MiniGameController miniGameController;
+    [SerializeField] private MiniGameController miniGameController;
 
     private void Start()
     {
