@@ -12,10 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5380ab7a022aec840932c2ec0845ad00, type: 3}
   m_Name: Saturn Battery
   m_EditorClassIdentifier: 
-  _RecipeID: 158153410000
+  _RecipeID: 158153010000
   _ResultItem: {fileID: 11400000, guid: 864b29007d24bca479c3a19f82b40296, type: 2}
   _MaterialsInRecipe:
   - {fileID: 11400000, guid: 467775ae9f4ca6c46a737bc9940c962d, type: 2}
   - {fileID: 11400000, guid: bb65bcc942b578e4b8f9b2429d2993b2, type: 2}
-  - {fileID: 11400000, guid: 864b29007d24bca479c3a19f82b40296, type: 2}
+  - {fileID: 11400000, guid: 3aae6d86421f11042a910b72a4dd075f, type: 2}
   - {fileID: 0}
