@@ -8,7 +8,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/In-Game Scenes/Main-Menu.unity
     guid: a3bd554c4a3ac3a418f1ac38865061a3
-  - enabled: 1
+  - enabled: 0
     path: Assets/In-Game Scenes/Player's Hub.unity
     guid: d540b7901729b8f46a5f1ddd62540533
   - enabled: 1
@@ -16,5 +16,5 @@ EditorBuildSettings:
     guid: e9b288547d06e9044bde272c5cb70ab1
   - enabled: 1
     path: Assets/In-Game Scenes/TownScene.unity
-    guid: 8e38a8d2a7b605d4e96cc1b3d2bad3bc
+    guid: 6062e1d8e96474b4e9f59b8c94d5f440
   m_configObjects: {}
