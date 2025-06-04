@@ -26,7 +26,7 @@ public class InventoryHolder : Singleton<InventoryHolder>
 
     public void Update()
     {
-        _moneyText.text = money.ToString();
+        UpdateMoney();
     }
 
     public override void Awake()
@@ -52,11 +52,25 @@ public class InventoryHolder : Singleton<InventoryHolder>
     public void AddMoney(int amount)
     {
         money += amount;
+        UpdateMoney();
     }
 
     public void SpendMoney(int amount)
     {
         money -= amount;
+        UpdateMoney();
+    }
+
+    private void UpdateMoney()
+    {
+        if(_moneyText.text == null)
+        {
+            _moneyText = GameObject.FindWithTag("MoneyText").GetComponent<TMP_Text>();
+        }
+        else
+        {
+            _moneyText.text = money.ToString();
+        }
     }
 }
 

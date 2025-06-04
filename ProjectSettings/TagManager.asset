@@ -9,6 +9,7 @@ TagManager:
   - PotionCheck
   - Despawn
   - CutSecneCam
+  - MoneyText
   layers:
   - Default
   - TransparentFX

@@ -3,11 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
+using TMPro;
 
 public class BuyMaterialButton : MonoBehaviour, IPointerClickHandler
 {
     public Image iconImage;
-    public Text quantityText;
+    public TMP_Text quantityText;
 
     [SerializeField] private ItemData itemData;
     [SerializeField] private int quantity;
@@ -27,13 +28,21 @@ public class BuyMaterialButton : MonoBehaviour, IPointerClickHandler
     {
         if (eventData.button == PointerEventData.InputButton.Left)
         {
-            quantity= Mathf.Max(10, quantity ++);
-            manager.moneyToSpend += sellPrice;
+            Debug.Log("Left-Click");
+
+            int previousQuantity = quantity;
+
+            quantity = Mathf.Min(quantity + 1 , 10);
+            
+            if(quantity > previousQuantity)
+            {
+                manager.UpdateMoneyText(+sellPrice);
+            }
         }
         else if (eventData.button == PointerEventData.InputButton.Right)
         {
             quantity = Mathf.Max(0, quantity - 1);
-            manager.moneyToSpend -= sellPrice;
+            manager.UpdateMoneyText(-sellPrice);
 
         }
 
@@ -65,5 +74,11 @@ public class BuyMaterialButton : MonoBehaviour, IPointerClickHandler
     void Update()
     {
         
+    }
+
+    private void OnEnable()
+    {
+        quantity = 0;
+        UpdateQuantityUI();
     }
 }
