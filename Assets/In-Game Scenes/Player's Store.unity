@@ -9698,7 +9698,7 @@ MonoBehaviour:
   shopCloseTime: 14
   currentDay: 1
   IsStoreOpen: 0
-  IsDayStart: 0
+  IsDayStart: 1
   clockHandTransform: {fileID: 0}
 --- !u!4 &597229541
 Transform:

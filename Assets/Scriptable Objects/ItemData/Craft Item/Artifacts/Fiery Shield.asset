@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Fiery Shield
   m_EditorClassIdentifier: 
   ID: 414
-  itemName: Arcane Goggle
+  itemName: Fiery Shield
   itemType: 1
   description: 
   icon: {fileID: 21300000, guid: 412055d04d7bd65439f3493ea468edaf, type: 3}
