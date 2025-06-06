@@ -24,6 +24,10 @@ public class TradeUIController : MonoBehaviour
     [SerializeField] private TradeSystem tradeSystem;
     [SerializeField] private UIController uiController;
 
+    [Header("Small UI Request Item")]
+    [SerializeField] private Image smallRequestIcon;
+    [SerializeField] private Image smallRequestFrame;
+
     private void Awake()
     {       
         //_buttonText = confirmButton.GetComponentInChildren<TextMeshPro>();
@@ -33,7 +37,84 @@ public class TradeUIController : MonoBehaviour
     }
     private void Update()
     {
+        SmallRequestFrame();
         UpdateConfirmButton();
+        SmallRequestItemUI();
+    }
+
+    private void SmallRequestFrame()
+    {
+        if(smallRequestFrame != null)
+        {
+            smallRequestFrame.gameObject.SetActive(!tradePanel.activeSelf);
+
+        }
+        else
+        {
+            smallRequestFrame = GameObject.FindGameObjectWithTag("SmallRequestFrame").GetComponent<Image>();
+        }
+    }
+
+    private void SmallRequestItemUI() // Bug To Fix
+    {
+        // Ensure smallRequestIcon is assigned
+        if (smallRequestIcon == null)
+        {
+            GameObject iconObject = GameObject.FindWithTag("SmallRequestItem");
+            if (iconObject != null)
+                smallRequestIcon = iconObject.GetComponent<Image>();
+        }
+
+        if (smallRequestIcon == null)
+            return; // Exit early if still null
+
+
+        // Try to find and assign requestedItemIcon
+        if (requestedItemIcon == null)
+        {
+            GameObject requestedObject = GameObject.FindWithTag("RequestItem");
+            if (requestedObject != null)
+                requestedItemIcon = requestedObject.GetComponent<Image>();
+        }
+
+        bool iconSet = false;
+
+        // Priority 1: Use requestedItemIcon if available
+        if (requestedItemIcon != null && requestedItemIcon.sprite != null)
+        {
+            smallRequestIcon.sprite = requestedItemIcon.sprite;
+            SetImageAlpha(smallRequestIcon, 1f);
+            iconSet = true;
+        }
+        else
+        {
+            // Priority 2: Find the NPC who is buying
+            NPCBuyer[] npcs = GameObject.FindObjectsOfType<NPCBuyer>();
+            foreach (var npc in npcs)
+            {
+                if (npc.isBuying && npc.requestedItem != null && npc.requestedItem.icon != null)
+                {
+                    smallRequestIcon.sprite = npc.requestedItem.icon;
+                    SetImageAlpha(smallRequestIcon, 1f);
+                    iconSet = true;
+                    break;
+                }
+            }
+        }
+
+        // If no icon could be set, hide the image
+        if (!iconSet)
+        {
+            smallRequestIcon.sprite = null;
+            SetImageAlpha(smallRequestIcon, 0f);
+        }
+    }
+
+    private void SetImageAlpha(Image image, float alpha)
+    {
+        Color color = image.color;
+        color.a = alpha;
+        image.color = color;
     }
 
     public void OpenTrade(NPCBuyer npc)
@@ -107,6 +188,9 @@ public class TradeUIController : MonoBehaviour
 
         tradeSystem.ConfirmTrade();
         RefreshInventoryUI();
+        smallRequestIcon.sprite = null;
+        SetImageAlpha(smallRequestIcon, 0f);
+
     }
 
     private void OnCancelButtonPress()
@@ -115,6 +199,9 @@ public class TradeUIController : MonoBehaviour
 
         tradeSystem.CancleTrade();
         RefreshInventoryUI();
+        smallRequestIcon.sprite= null;
+        SetImageAlpha(smallRequestIcon, 0f);
+
     }
 
 

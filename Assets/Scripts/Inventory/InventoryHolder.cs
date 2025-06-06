@@ -63,14 +63,22 @@ public class InventoryHolder : Singleton<InventoryHolder>
 
     private void UpdateMoney()
     {
-        if(_moneyText.text == null)
+        if(_moneyText == null)
         {
-            _moneyText = GameObject.FindWithTag("MoneyText").GetComponent<TMP_Text>();
+            GameObject obj = GameObject.FindWithTag("MoneyText");
+            if(obj != null)
+            {
+                _moneyText = obj.GetComponent<TMP_Text>();
+
+            }
+            else
+            {
+                Debug.LogWarning("Cannot Find Game Object With Tag <MoneyText>");
+                return;
+            }
         }
-        else
-        {
-            _moneyText.text = money.ToString();
-        }
+        
+        _moneyText.text = money.ToString();        
     }
 }
 

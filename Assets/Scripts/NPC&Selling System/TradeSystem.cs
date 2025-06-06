@@ -4,9 +4,8 @@ using System.Xml.Linq;
 using Unity.VisualScripting;
 using UnityEngine;
 
-public class TradeSystem : Singleton<TradeSystem>
+public class TradeSystem : MonoBehaviour
 {
-    
     [SerializeField] private NPCBuyer currentNPC;
     [SerializeField] private Slot placedItemSlot; // might change later
 
@@ -23,7 +22,7 @@ public class TradeSystem : Singleton<TradeSystem>
     [SerializeField] private float interactionDistance = 2f;
 
     public bool _hasPlaceItem;
-    private bool _startTrade = false;
+    private bool _areTrading => TimeManager.instance.IsStoreOpen;
     private void SetCurrentNPC(NPCBuyer npc)
     {
         currentNPC = npc;
@@ -43,7 +42,7 @@ public class TradeSystem : Singleton<TradeSystem>
 
         if(Input.GetKeyDown(KeyCode.L))
         {
-            OnSpawnNPC();
+            //OnSpawnNPC();
         }
         if(Input.GetKeyDown(KeyCode.E))
         {
@@ -59,7 +58,7 @@ public class TradeSystem : Singleton<TradeSystem>
 
         if(distance <= interactionDistance)
         {
-            if(currentNPC != null && _startTrade)
+            if(currentNPC != null && _areTrading)
             {
                 if(!uiManager.tradePanel.activeSelf)
                 {
@@ -70,9 +69,22 @@ public class TradeSystem : Singleton<TradeSystem>
                     uiManager.CloseTrade();
                 }
             }
-            if(!_startTrade)
+            else if(currentNPC != null) // clear last NPC
             {
-                _startTrade= true;
+                if (!uiManager.tradePanel.activeSelf)
+                {
+                    uiManager.OpenTrade(currentNPC);
+                }
+                else
+                {
+                    uiManager.CloseTrade();
+                }
+            }
+
+            if(!_areTrading && TimeManager.instance.CanOpenShopBeforeTime()) // If haven't open store :open store
+            {
+                TimeManager.instance.IsStoreOpen = true;
+                TimeManager.instance.TryOpenStore();
                 OnSpawnNPC();
             }
         }
@@ -80,6 +92,8 @@ public class TradeSystem : Singleton<TradeSystem>
 
     public void OnSpawnNPC()
     {
+        if (!_areTrading) return;
+
         List<GameObject> weightedList = new List<GameObject>();
 
         foreach (GameObject npcPrefab in npcPrefabs)

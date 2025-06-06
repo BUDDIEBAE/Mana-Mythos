@@ -7,7 +7,6 @@ public class UIEffectController : Singleton<UIEffectController>
 {
     [SerializeField] private GameObject _craftUI;
 
-
     public void ShakeHandle(float duration, float magnitude, float fadeTime)
     {
         StartCoroutine(UIShake(duration, magnitude, fadeTime));

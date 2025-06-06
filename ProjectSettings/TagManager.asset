@@ -10,6 +10,10 @@ TagManager:
   - Despawn
   - CutSecneCam
   - MoneyText
+  - ClockHand
+  - RequestItem
+  - SmallRequestItem
+  - SmallRequestFrame
   layers:
   - Default
   - TransparentFX

@@ -5,7 +5,7 @@ using UnityEngine;
 public class Singleton<T> : MonoBehaviour where T : MonoBehaviour
 {
     public static bool _verbose = false;
-    public static bool _keepAlive = false;
+    public static bool _keepAlive = true;
     private static T _instance = null;
     public static T instance
     {
