@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
 using TMPro;
+using static UnityEditor.Progress;
 
 [System.Serializable]
 public class InventoryHolder : Singleton<InventoryHolder>
@@ -40,10 +41,15 @@ public class InventoryHolder : Singleton<InventoryHolder>
 
     private void Start() // use for debugging game
     {
-        foreach (ItemData item in itemToAdd)
+        for(int i = 0; i < itemToAdd.Count; i++)
+        {
+            InventorySystem.AddItemToInventory(itemToAdd[i], itemToAdd[i].maxStack);
+        }
+
+        /*foreach (ItemData item in itemToAdd)
         {
             InventorySystem.AddItemToInventory(item, item.maxStack);
-        }
+        }*/
 
         money = PlayerPrefs.GetInt("Money");
 

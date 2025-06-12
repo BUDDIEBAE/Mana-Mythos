@@ -16,6 +16,8 @@ public class InventorySystem
 
     public UnityAction<InventorySlot> OnInventorySlotChange;
 
+
+
     public InventorySystem(int size)
     {
         inventorySlots = new List<InventorySlot>(size);
@@ -29,6 +31,8 @@ public class InventorySystem
 
     public bool AddItemToInventory(ItemData itemToAdd, int amountToAdd)
     {
+        InventorySlot_UI slotUI = GameObject.FindAnyObjectByType<InventorySlot_UI>();
+
         if(ContainsItem(itemToAdd, out List<InventorySlot> Slots)) // Check whether item exists in inventory
         {
             foreach (var slot in Slots)
@@ -39,6 +43,8 @@ public class InventorySystem
                     OnInventorySlotChange?.Invoke(slot);
 
 
+                    slotUI.UpdateUISlot(slot);
+                    Debug.Log("Add To Slot");
                     return true;
                 }
             }
@@ -48,6 +54,10 @@ public class InventorySystem
         {
             freeSlot.UpdateInventorySlot(itemToAdd, amountToAdd);
             OnInventorySlotChange?.Invoke(freeSlot);
+            
+
+
+            Debug.Log("Add To Free Slot");
 
             return true;
         }

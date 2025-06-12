@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -66,24 +66,37 @@ public class MerchantManager : MonoBehaviour
 
     public void OnConfirmBuy()
     {
-        InventoryHolder inventoryHolder = InventoryHolder.instance;
+        Debug.Log("OnConfirmBuy called");
+
 
         if (moneyToSpend > InventoryHolder.instance.Money)
         {
-            // if money to spend is more than current money show something
-
+            Debug.LogWarning("Not enough money to buy.");
             return;
         }
 
         for (int i = 0; i < buttons.Length; i++)
         {
-            if (buttons[i].GetQuantity() > 0)
+            var item = buttons[i].GetItem();
+            int quantity = buttons[i].GetQuantity();
+
+            Debug.Log($"Button {i}: Item = {(item != null ? item.name : "null")}, Quantity = {quantity}");
+
+            if (quantity > 0)
             {
-                inventoryHolder.InventorySystem.AddItemToInventory(buttons[i].GetItem(), buttons[i].GetQuantity());
+                bool added = InventoryHolder.instance.InventorySystem.AddItemToInventory(item, quantity);
+                if (!added)
+                {
+                    Debug.LogWarning($"❌ Failed to add {quantity}x {item.name} to inventory.");
+                }
+                else
+                {
+                    Debug.Log($"✅ Added {quantity}x {item.name} to inventory.");
+                }
             }
         }
 
-        inventoryHolder.SpendMoney(moneyToSpend);
+        InventoryHolder.instance.SpendMoney(moneyToSpend);
         moneyToSpend = 0;
         _catalogPanel.SetActive(false);
     }

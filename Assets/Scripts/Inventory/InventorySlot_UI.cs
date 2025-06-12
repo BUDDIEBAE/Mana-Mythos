@@ -17,15 +17,16 @@ public class InventorySlot_UI : MonoBehaviour
     // the dis play start with blank inventory slot
     private void Awake()
     {
-        ClearSlot();
+        //ClearSlot();
 
         ParentDisplay = transform.parent.GetComponent<InventoryDisplay>();
 
     }
 
-    public void Init(InventorySlot slot) //
+    public void Init(InventorySlot slot, InventoryDisplay display) //
     {
         _assignedSlot = slot;
+        ParentDisplay = display;
         UpdateUISlot(slot);
     }
 
@@ -59,6 +60,7 @@ public class InventorySlot_UI : MonoBehaviour
         }
         else
         {
+            Debug.Log("Clear Slot");
             ClearSlot();
         }
     }

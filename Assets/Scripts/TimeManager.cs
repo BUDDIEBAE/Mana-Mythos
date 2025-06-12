@@ -1,8 +1,9 @@
+using MaskTransitions;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-
+using TMPro;
 public class TimeManager : Singleton<TimeManager>
 {
     [Header("Time Setting")]
@@ -17,6 +18,7 @@ public class TimeManager : Singleton<TimeManager>
     private float timeMultiplier;
     private float timeMultiplierShopClose; // Time When Shop Close run slowly
     private float timeMultiplierShopOpen; // Time When Shop Open run faster
+    public TMP_Text dayText;
 
     [Header("Bool Check")]
     [Tooltip("Check if player decide to open the store.")]
@@ -26,6 +28,11 @@ public class TimeManager : Singleton<TimeManager>
 
     [Header("UI Reference")]
     [SerializeField] private RectTransform clockHandTransform;
+
+
+    [Header("Sleep")]
+    public Transform sleepTf;
+    public Image sleepButton;
 
     private StoreState storeStage;
     private void Start()
@@ -37,8 +44,18 @@ public class TimeManager : Singleton<TimeManager>
 
     private void Update()
     {
+        if(currentDay > 7)
+        {
+            if(InventoryHolder.instance.Money < 10000)
+            {
+                Application.Quit();
+            }
+        }
+
         if (IsDayStart) AdvanceTime();
         UpdateClockUI();
+
+        OnSleep();
     }
 
     private void AdvanceTime()
@@ -128,6 +145,37 @@ public class TimeManager : Singleton<TimeManager>
 
         return false;
     }
+
+    public void OnSleep()
+    {
+        if(dayText == null) dayText = GameObject.FindWithTag("DayText").GetComponent<TMP_Text>();
+        
+        dayText.text = $"Day {currentDay}";
+
+        if (sleepButton == null) sleepButton = GameObject.FindWithTag("SleepButton").GetComponent<Image>();        
+        if(sleepTf == null) sleepTf = GameObject.FindWithTag("SleepTF").GetComponent<Transform>();
+        Transform playerTf = GameObject.FindWithTag("Player").GetComponent<Transform>();
+        float distance = Vector3.Distance(playerTf.position, sleepTf.position);
+
+        if (distance < 0.5f)
+        {
+            sleepButton.gameObject.SetActive(true);
+
+            if (Input.GetKeyDown(KeyCode.E))
+            {
+                TransitionManager.Instance.PlayTransition(2f);
+
+                currentDay++;
+                currTime = 0;
+                IsStoreOpen = false;
+            }
+        }
+        else
+        {
+            sleepButton.gameObject.SetActive(false);
+        }
+    }
+
 }
 
 public enum StoreState {Preparation, OpenStore, CloseStore}

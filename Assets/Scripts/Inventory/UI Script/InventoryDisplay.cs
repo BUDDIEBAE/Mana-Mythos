@@ -14,12 +14,21 @@ public abstract class InventoryDisplay : MonoBehaviour
     public Dictionary<InventorySlot_UI, InventorySlot> SlotDictionary => _slotDictionary;
 
     public abstract void AssignSlot(InventorySystem inventoryToDisplay);
-    
+
+    [SerializeField] private InventoryHolder inventoryHolder;
+
+    private void Awake()
+    {
+        _inventorySystem = inventoryHolder.InventorySystem;
+        
+    }
+
     protected virtual void Start()
     {
+        _inventorySystem.OnInventorySlotChange += UpdateSlot;
 
     }
-    
+
 
     protected virtual void UpdateSlot(InventorySlot updatedSlot)
     {

@@ -40,8 +40,7 @@ public class CraftingSystem : MonoBehaviour
         Debug.Log("Crafting Completed!");
         InventoryHolder inventoryHolder = FindAnyObjectByType<InventoryHolder>();
         inventoryHolder.InventorySystem.AddItemToInventory(_resultItemData, 1);
-
-
+        
         OnClearSlot();
     }
         /*_resultSlot.gameObject.SetActive(true);

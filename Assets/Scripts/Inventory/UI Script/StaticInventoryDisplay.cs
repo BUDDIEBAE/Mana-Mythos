@@ -18,6 +18,8 @@ public class StaticInventoryDisplay : InventoryDisplay
         }
         else
         {
+            _inventoryHolder = GameObject.FindWithTag("Inventory").GetComponent<InventoryHolder>();
+
             Debug.LogWarning($"No Inventory Assigned to {this.name} GameObject");
         }
 
@@ -33,9 +35,15 @@ public class StaticInventoryDisplay : InventoryDisplay
         for(int i = 0 ; i < _inventorySystem.InventorySize; i++)
         {
             _slotDictionary.Add(_slots[i], _inventorySystem.InventorySlots[i]);
-            _slots[i].Init(_inventorySystem.InventorySlots[i] );
+            _slots[i].Init(_inventorySystem.InventorySlots[i], this );
+        }
+    }
+    void Update()
+    {
+        foreach (var pair in _slotDictionary)
+        {
+            pair.Key.UpdateUISlot(pair.Value);
         }
     }
 
-   
 }

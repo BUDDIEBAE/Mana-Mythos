@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 6195394080711538134}
   - component: {fileID: 4264896306855705206}
   - component: {fileID: 4057454570715859829}
+  - component: {fileID: 4575782616181286866}
   m_Layer: 6
   m_Name: NPC4
   m_TagString: NPC
@@ -126,12 +127,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 06f47cbec7cfb90499104d49692ed790, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 1.5
+  moveSpeed: 1
   isBuying: 0
   requestedItem: {fileID: 0}
   itemTobuy: []
   _needsData: {fileID: 11400000, guid: 0024ed3559d7ffa45b4daa7d4b61e5eb, type: 2}
   tradeUI: {fileID: 0}
+  _animator: {fileID: 0}
+  _rb: {fileID: 0}
   destination: {fileID: 0}
 --- !u!65 &4057454570715859829
 BoxCollider:
@@ -154,3 +157,24 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1.5, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!95 &4575782616181286866
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5562537035627572152}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: fc65f188129303d42a709d9851dd4c71, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0

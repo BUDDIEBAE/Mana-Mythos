@@ -1,11 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.UI;
 public class PlayerInteract : MonoBehaviour
 {
     [SerializeField] private Transform _furnanceInteraction;
     [SerializeField] private Transform _potionInteraction;
+    public Image furnanceInterAction;
+    public Image potionInterAction;
+
 
     [SerializeField] private GameObject _player;
 
@@ -37,25 +40,43 @@ public class PlayerInteract : MonoBehaviour
         float distToPotion = Vector3.Distance(_player.transform.position, _potionInteraction.position);
 
         // Toggle interaction with E
-        if (Input.GetKeyDown(KeyCode.E))
-        {
+
             // Toggle Furnance
             if (distToFurnance <= _interactionDistance)
             {
-                bool isActive = _uiController._furnancePanel.activeSelf;
-                _uiController._furnancePanel.SetActive(!isActive);
-                _uiController.ToggleInventory(_holder.InventorySystem);
-                _furnanceUIOpen = !isActive;
+            furnanceInterAction.gameObject.SetActive(true);
+                if (Input.GetKeyDown(KeyCode.E))
+                {
+                    bool isActive = _uiController._furnancePanel.activeSelf;
+                    _uiController._furnancePanel.SetActive(!isActive);
+                    _uiController.ToggleInventory(_holder.InventorySystem);
+                    _furnanceUIOpen = !isActive;
+
+                }
             }
+            else
+        {
+            furnanceInterAction.gameObject.SetActive(false);
+        }
 
             // Toggle Potion
             if (distToPotion <= _interactionDistance)
             {
-                bool isActive = _uiController._potionPanel.activeSelf;
-                _uiController._potionPanel.SetActive(!isActive);
-                _uiController.ToggleInventory(_holder.InventorySystem);
-                _potionUIOpen = !isActive;
-            }
+            potionInterAction.gameObject.SetActive(true);
+
+            if (Input.GetKeyDown(KeyCode.E))
+                {
+                    bool isActive = _uiController._potionPanel.activeSelf;
+                    _uiController._potionPanel.SetActive(!isActive);
+                    _uiController.ToggleInventory(_holder.InventorySystem);
+                    _potionUIOpen = !isActive;
+
+                }
+            }      
+            else
+        {
+            potionInterAction.gameObject.SetActive(false);
+
         }
 
         // Auto-close if player moves away

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Xml.Linq;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class TradeSystem : MonoBehaviour
 {
@@ -20,9 +21,12 @@ public class TradeSystem : MonoBehaviour
     [Header("Player Interaction")]
     [SerializeField] private Transform playerStand;
     [SerializeField] private float interactionDistance = 2f;
+    public Image interactionImage;
 
     public bool _hasPlaceItem;
     private bool _areTrading => TimeManager.instance.IsStoreOpen;
+
+
     private void SetCurrentNPC(NPCBuyer npc)
     {
         currentNPC = npc;
@@ -39,15 +43,7 @@ public class TradeSystem : MonoBehaviour
             _hasPlaceItem= true;
         }
 
-
-        if(Input.GetKeyDown(KeyCode.L))
-        {
-            //OnSpawnNPC();
-        }
-        if(Input.GetKeyDown(KeyCode.E))
-        {
-            OnCheckPlayerDistance();
-        }
+        OnCheckPlayerDistance();        
 
     }
 
@@ -55,39 +51,57 @@ public class TradeSystem : MonoBehaviour
     {
         Transform playerTransform = GameObject.FindGameObjectWithTag("Player")?.transform;
         float distance = Vector3.Distance(playerTransform.position, playerStand.position);
+        FindPlayerStandAndInteractionImage();
 
-        if(distance <= interactionDistance)
+        if (distance <= interactionDistance)
         {
-            if(currentNPC != null && _areTrading)
-            {
-                if(!uiManager.tradePanel.activeSelf)
-                {
-                    uiManager.OpenTrade(currentNPC);
-                }
-                else
-                {
-                    uiManager.CloseTrade();
-                }
-            }
-            else if(currentNPC != null) // clear last NPC
-            {
-                if (!uiManager.tradePanel.activeSelf)
-                {
-                    uiManager.OpenTrade(currentNPC);
-                }
-                else
-                {
-                    uiManager.CloseTrade();
-                }
-            }
+            interactionImage.gameObject.SetActive(true);
 
-            if(!_areTrading && TimeManager.instance.CanOpenShopBeforeTime()) // If haven't open store :open store
+            if(Input.GetKeyDown(KeyCode.E))
             {
-                TimeManager.instance.IsStoreOpen = true;
-                TimeManager.instance.TryOpenStore();
-                OnSpawnNPC();
+                if(currentNPC != null && _areTrading)
+                {
+                    if(!uiManager.tradePanel.activeSelf)
+                    {
+                        uiManager.OpenTrade(currentNPC);
+                    }
+                    else
+                    {
+                        uiManager.CloseTrade();
+                    }
+                }
+                else if(currentNPC != null) // clear last NPC
+                {
+                    if (!uiManager.tradePanel.activeSelf)
+                    {
+                        uiManager.OpenTrade(currentNPC);
+                    }
+                    else
+                    {
+                        uiManager.CloseTrade();
+                    }
+                }
+
+                if(!_areTrading && TimeManager.instance.CanOpenShopBeforeTime()) // If haven't open store :open store
+                {
+                    TimeManager.instance.IsStoreOpen = true;
+                    TimeManager.instance.TryOpenStore();
+                    OnSpawnNPC();
+                }
+
             }
         }
+        else
+        {
+            if (interactionImage == null) return;
+            interactionImage.gameObject.SetActive(false);
+        }
+    }
+
+    private void FindPlayerStandAndInteractionImage()
+    {
+        if (playerStand == null) playerStand = GameObject.FindWithTag("PlayerStand").GetComponent<Transform>();
+        if (interactionImage == null) interactionImage = GameObject.FindWithTag("SellButton").GetComponent<Image>();
     }
 
     public void OnSpawnNPC()
