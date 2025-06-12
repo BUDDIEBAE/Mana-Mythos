@@ -34,10 +34,14 @@ public class PotionCraftingSystem : MonoBehaviour
     {
         if(_ingredientSlot._itemdata != null)
         {
+            OnCheckIngredients();
             AddIngredientToRecipe(_ingredientSlot._itemdata);
-            UpdateResultSlot();
+            if(UpdateResultSlot())
+            {
+                _ingredientSlot._itemdata = null;
 
-            _ingredientSlot._itemdata = null;
+            }
+
         }
     }
 
@@ -45,7 +49,7 @@ public class PotionCraftingSystem : MonoBehaviour
     {
         if(ingredient != null)
         {
-            if(_recipeID == "") // add the first ingredient
+            if(_recipeID == string.Empty) // add the first ingredient
             {
                 _recipeID = ingredient.ID;
             }
@@ -59,24 +63,52 @@ public class PotionCraftingSystem : MonoBehaviour
         
     }
 
-    private void UpdateResultSlot()
+    private void OnCheckIngredients()
     {
-        foreach (Slot resultSlot in _resultSlots)
-        {
-            // Find matching recipe based on the current recipe ID
-            PotionRecipeData matchingRecipe = _potionsRecipe.Find(recipe => recipe._recipeID == _recipeID);
+        ItemData firstItem = _resultSlots[0]._itemdata;
 
-            if (matchingRecipe != null)
+        for(int i = 0; i < _resultSlots.Count; i++)
+        {
+            if (_resultSlots[i]._itemdata != firstItem)
             {
-                _currPotion = matchingRecipe._resultPotion;
-                resultSlot._itemdata = matchingRecipe._resultPotion;  // Update the result slot with the resulting potion
+
+                _recipeID = string.Empty;
+                return;
             }
-            else // Handle a condition where crafting unsuccessfull here
+            else if(_resultSlots[i]._itemdata == null)
             {
-                Debug.LogWarning("No matching recipe found for this combination of ingredients.");
+                _recipeID = string.Empty;
+
+            }
+            else if(_resultSlots[i]._itemdata == firstItem) 
+            {
+                _recipeID = _resultSlots[0]._itemdata.ID;
             }
         }
-    }    
+    }
+
+    private bool UpdateResultSlot()
+    {
+        PotionRecipeData matchingRecipe = _potionsRecipe.Find(recipe => recipe._recipeID == _recipeID);
+
+        if (matchingRecipe != null)
+        {
+            _currPotion = matchingRecipe._resultPotion;
+
+            foreach (Slot resultSlot in _resultSlots)
+            {
+                resultSlot._itemdata = matchingRecipe._resultPotion;
+            }
+
+            Debug.Log($"Crafted: {_currPotion.name}");
+            return true;
+        }
+        else
+        {
+            Debug.LogWarning("No matching recipe found for this combination of ingredients.");
+            return false;
+        }
+    }
 
     public void OnClearSlot()
     {

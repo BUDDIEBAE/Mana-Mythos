@@ -451,9 +451,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _ingredientSlot: {fileID: 1295024956}
   _resultSlots:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 1561032068}
+  - {fileID: 640316111}
+  - {fileID: 1334309932}
   _currPotion: {fileID: 0}
   _potionsRecipe:
   - {fileID: 11400000, guid: 54848166e9fdfbf479de486b713b7eed, type: 2}
@@ -9009,7 +9009,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 19362094}
         m_TargetAssemblyTypeName: PotionCraftingSystem, Assembly-CSharp
         m_MethodName: StartBrewing
         m_Mode: 1
@@ -12484,9 +12484,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1418490312}
-        m_TargetAssemblyTypeName: MiniGameController, Assembly-CSharp
-        m_MethodName: StartMiniGame
+      - m_Target: {fileID: 1418490313}
+        m_TargetAssemblyTypeName: CraftingSystem, Assembly-CSharp
+        m_MethodName: StartCrafting
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

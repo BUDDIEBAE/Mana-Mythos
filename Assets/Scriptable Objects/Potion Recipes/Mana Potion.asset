@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c887130e2b911e74496ce6a974fe609e, type: 3}
   m_Name: Mana Potion
   m_EditorClassIdentifier: 
-  _recipeID: 201203
+  _recipeID: 301203
   _resultPotion: {fileID: 11400000, guid: ddd5f2bce77019448aa01d03319b7acd, type: 2}
   _requireIngredients:
-  - {fileID: 11400000, guid: bb2e1a1fb0bcbdb45a5bfd3df6747828, type: 2}
+  - {fileID: 11400000, guid: e10f79ea8c5d8834abf10cb07e2842c6, type: 2}
   - {fileID: 11400000, guid: 4691a58e64fbfa940a6cffa0e3109d10, type: 2}
