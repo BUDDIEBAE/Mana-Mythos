@@ -15,6 +15,8 @@ public class SceneChanger : MonoBehaviour
 
     void Start()
     {
+        PlayerPrefs.SetInt("Endcutscene", 0);
+        PlayerPrefs.SetInt("Endcutscene2", 0);
         // เช็คว่ามีการเล่น Cutscene ไปแล้วหรือยัง
         cutscenePlayed = PlayerPrefs.GetInt("CutscenePlayed", 0) == 1;
 
@@ -57,6 +59,7 @@ public class SceneChanger : MonoBehaviour
 
     void ChangeScene()
     {
+        PlayerPrefs.SetInt("Endcutscene", 1);
         SceneManager.LoadScene(sceneName);
     }
 }

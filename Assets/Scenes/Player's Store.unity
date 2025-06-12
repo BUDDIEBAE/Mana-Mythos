@@ -24411,6 +24411,7 @@ GameObject:
   - component: {fileID: 1728736770}
   - component: {fileID: 1728736774}
   - component: {fileID: 1728736775}
+  - component: {fileID: 1728736776}
   m_Layer: 5
   m_Name: Main Canvas
   m_TagString: Untagged
@@ -24465,7 +24466,7 @@ Canvas:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1728736769}
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
   m_RenderMode: 0
   m_Camera: {fileID: 0}
@@ -24544,6 +24545,21 @@ MonoBehaviour:
   _furnancePanel: {fileID: 1331495789}
   _potionPanel: {fileID: 1404469573}
   isOpen: 0
+--- !u!114 &1728736776
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1728736769}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 63ef3d612d3de2e4096b200a3bb3493a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  showui: 0
+  lastcutscene: 0
+  canvas: {fileID: 0}
 --- !u!1 &1730206446
 GameObject:
   m_ObjectHideFlags: 0
@@ -37103,7 +37119,7 @@ SpriteRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8270289926273702872}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 0
@@ -37224,6 +37240,7 @@ GameObject:
   - component: {fileID: 5687232485217978853}
   - component: {fileID: 6659713478630877856}
   - component: {fileID: 3382352979121284564}
+  - component: {fileID: 8270289926273702873}
   m_Layer: 7
   m_Name: Alisa
   m_TagString: Player
@@ -37231,6 +37248,20 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!114 &8270289926273702873
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8270289926273702872}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 358ed85c14c59f04aae9efd10dda6773, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spriteRenderer: {fileID: 0}
+  MainGirl: 0
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
