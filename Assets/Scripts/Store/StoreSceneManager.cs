@@ -26,6 +26,7 @@ public class StoreSceneManager : MonoBehaviour
 
     private TeleportZone _lastTeleportedTo = TeleportZone.None;
     private bool _canTeleport = true;
+    public bool cutscene;
 
     [Header("Wall")]
     [SerializeField] private AreaTrigger[] _areaTrigger;    
@@ -35,6 +36,7 @@ public class StoreSceneManager : MonoBehaviour
     private void Start()
     {
         _player = FindAnyObjectByType<PlayerController>().gameObject;
+        cutscene = PlayerPrefs.GetInt("Endcutscene2", 0) == 1;
 
         foreach (var wallPair in _wallToDisappear)
         {
@@ -157,8 +159,15 @@ public class StoreSceneManager : MonoBehaviour
         {
             PlayerPrefs.SetInt("Money", InventoryHolder.instance.Money);
             PlayerPrefs.Save();
-
-            SceneManager.LoadScene("TownScene"); // Replace with your scene name
+            if(cutscene == false)
+            {
+                SceneManager.LoadScene("Market Cut Sence"); // Replace with your scene name
+            }
+            else 
+            {
+                SceneManager.LoadScene("TownScene"); // Replace with your scene name
+            }
+           
         }
     }
  

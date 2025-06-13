@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
 using TMPro;
-using static UnityEditor.Progress;
+
 
 [System.Serializable]
 public class InventoryHolder : Singleton<InventoryHolder>

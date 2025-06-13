@@ -12,9 +12,11 @@ public class SceneChanger : MonoBehaviour
     public Camera playerCamera;
 
     private bool cutscenePlayed;
+    public string Tagetscene;
 
     void Start()
     {
+        SceneManager.LoadScene(Tagetscene, LoadSceneMode.Additive);
         PlayerPrefs.SetInt("Endcutscene", 0);
         PlayerPrefs.SetInt("Endcutscene2", 0);
         // เช็คว่ามีการเล่น Cutscene ไปแล้วหรือยัง

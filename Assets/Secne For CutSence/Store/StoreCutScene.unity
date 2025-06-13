@@ -331,6 +331,7 @@ MonoBehaviour:
   sceneName: Player's Store
   cutsceneCamera: {fileID: 703273659}
   playerCamera: {fileID: 0}
+  Tagetscene: Player's Store
 --- !u!4 &410687032
 Transform:
   m_ObjectHideFlags: 0
@@ -686,7 +687,7 @@ Camera:
   field of view: 60
   orthographic: 0
   orthographic size: 5
-  m_Depth: -1
+  m_Depth: 10
   m_CullingMask:
     serializedVersion: 2
     m_Bits: 4294967295

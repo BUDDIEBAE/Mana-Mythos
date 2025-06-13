@@ -155,6 +155,7 @@ MonoBehaviour:
   sceneName: TownScene
   cutsceneCamera: {fileID: 755223281}
   playerCamera: {fileID: 0}
+  Tagetscene: TownScene
 --- !u!4 &12253831
 Transform:
   m_ObjectHideFlags: 0
@@ -608,7 +609,7 @@ Camera:
   field of view: 60
   orthographic: 0
   orthographic size: 5
-  m_Depth: -1
+  m_Depth: 10
   m_CullingMask:
     serializedVersion: 2
     m_Bits: 4294967295
@@ -1843,7 +1844,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_text: "Jamah :   Well then, if you need any goods, \ncome find me at the same
-    green shop as always."
+    blue shop as always."
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
